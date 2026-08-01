@@ -1469,6 +1469,7 @@
     - Npc
     - Kakariko Village
     - ARC
+    - Remote Location
   Metadata:
     Name Lookup:
       - Talo Sharpshooting
@@ -1492,6 +1493,7 @@
     - Overworld
     - Npc
     - Kakariko Village
+    - Remote Location
   Metadata:
     Name Lookup:
       - Ilia Memory Reward
@@ -1883,6 +1885,7 @@
     - Npc
     - Hidden Village
     - ARC
+    - Remote Location
   Metadata:
     Name Lookup:
       - Skybook From Impaz
@@ -1894,6 +1897,7 @@
     - Overworld
     - Npc
     - Hidden Village
+    - Remote Location
   Metadata:
     Freestanding Item:
       - Stage: 63
@@ -2215,6 +2219,7 @@
     - Overworld
     - Hyrule Field - Lanayru Province
     - ARC
+    - Remote Location
   Metadata:
     Chest:
       - Stage: 30
@@ -2478,6 +2483,7 @@
     - Npc
     - Castle Town
     - ARC
+    - Remote Location
   Metadata:
     Name Lookup:
       - Jovani 60 Poe Soul Reward
@@ -3556,6 +3562,7 @@
     - Npc
     - Lake Hylia
     - ARC
+    - Remote Location
   Metadata:
     Name Lookup:
       - Plumm Fruit Balloon Minigame
@@ -3644,6 +3651,7 @@
     - Npc
     - Upper Zoras River
     - ARC
+    - Remote Location
   Metadata:
     Name Lookup:
       - Iza Helping Hand
@@ -3656,6 +3664,7 @@
     - Npc
     - Upper Zoras River
     - ARC
+    - Remote Location
   Metadata:
     Name Lookup:
       - Iza Raging Rapids Minigame
@@ -4066,6 +4075,7 @@
     - Npc
     - Snowpeak Province
     - ARC
+    - Remote Location
   Metadata:
     Name Lookup:
       - Snowboard Racing Prize
@@ -4712,6 +4722,7 @@
     - Npc
     - Cave of Ordeals
     - ARC
+    - Remote Location
   Metadata:
     Name Lookup:
       - Cave of Ordeals Great Fairy Reward
@@ -4937,7 +4948,7 @@
     - Dungeon Reward
     - REL
     - ARC
-  Goal Location: True
+  Goal Name: Diababa
   Metadata:
     FLW Message:
       - Group: 5
@@ -5206,7 +5217,7 @@
     - Dungeon Reward
     - REL
     - ARC
-  Goal Location: True
+  Goal Name: Fyrus
   Metadata:
     FLW Message:
       - Group: 5
@@ -5531,7 +5542,7 @@
     - Dungeon Reward
     - REL
     - ARC
-  Goal Location: True
+  Goal Name: Morpheel
   Metadata:
     FLW Message:
       - Group: 5
@@ -5719,6 +5730,7 @@
   Categories:
     - Dungeon
     - Arbiters Grounds
+    - Remote Location
   Metadata:
     Chest:
       - Stage: 26
@@ -5804,7 +5816,7 @@
     - Dungeon
     - Arbiters Grounds
     - Dungeon Reward
-  Goal Location: True
+  Goal Name: Stallord
   Metadata:
     Name Lookup:
       - Arbiters Grounds Dungeon Reward
@@ -6094,7 +6106,7 @@
     - Dungeon Reward
     - REL
     - ARC
-  Goal Location: True
+  Goal Name: Blizzeta
   Metadata:
     FLW Message:
       - Group: 5
@@ -6329,7 +6341,7 @@
     - Dungeon Reward
     - REL
     - ARC
-  Goal Location: True
+  Goal Name: Armogohma
   Metadata:
     FLW Message:
       - Group: 5
@@ -6619,6 +6631,7 @@
     - Dungeon
     - City in the Sky
     - ARC
+    - Remote Location
   Metadata:
     Chest:
       - Stage: 14
@@ -6655,7 +6668,7 @@
     - Dungeon Reward
     - REL
     - ARC
-  Goal Location: True
+  Goal Name: Argorok
   Metadata:
     FLW Message:
       - Group: 5
@@ -6810,6 +6823,7 @@
     - Cutscene
     - Dungeon
     - Palace of Twilight
+    - Remote Location
   Metadata:
     Freestanding Item:
       - Stage: 15
@@ -6866,7 +6880,7 @@
     - Palace of Twilight
     - Heart Container
     - Dungeon Reward
-  Goal Location: True
+  Goal Name: Zant
   Metadata:
     Freestanding Item:
       - Stage: 16
@@ -7200,6 +7214,7 @@
   Original Item: Game Beatable
   Categories:
     - Placeholder
+  Goal Name: Ganondorf
   Metadata:
     - None
 
