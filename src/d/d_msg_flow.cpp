@@ -1825,13 +1825,6 @@ u16 dMsgFlow_c::query049(mesg_flow_node_branch* i_flowNode_p, fopAc_ac_c* i_spea
         ret = 4;
     }
 
-#if TARGET_PC
-    // Split up getting both rewards in randomizer
-    if (randomizer_IsActive() && ret == 4 && !dComIfGs_isEventBit(GOT_BOTTLE_FROM_JOVANI)) {
-        ret = 3;
-    }
-#endif
-
     if (param_2 != 0) {
         // "Collected Souls count"
         OS_REPORT("\x1B[44;33m:集めた魂の数　　\x1B[m|:");
