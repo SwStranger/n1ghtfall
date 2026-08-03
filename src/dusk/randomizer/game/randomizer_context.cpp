@@ -868,7 +868,7 @@ void randomizer_checkAndOverrideEntranceData(const char*& stageName, s8& roomNo,
     }
 }
 
-static void randomizer_setTempFlag(RandomizerContext::itemLocationData data) {
+void randomizer_setTempFlag(RandomizerContext::itemLocationData data) {
     // If stage is 0xFF, then this is an event flag
     if (data.stage == 0xFF) {
         g_randomizerState.mTrackerTempEventFlag = data.flag;
@@ -1314,38 +1314,36 @@ RandomizerContext WriteSeedData(randomizer::logic::world::World* world) {
                 event.params[2] = (params >> 8) & 0xFF;
                 event.params[3] = params & 0xFF;
 
-                // If we have a location flag, construct another FLW node to set the associated
-                // flag right before receiving the item. This is so we set the proper flag
-                // associated with the location before receiving the item so that the tracker/AP
-                // can pick up that it happened
-                if (flwEventNode["Location Flag"]) {
-                    auto newFlwIndex = handleCustomFlowID(location->GetName() + " Flag Set Node");
-                    mesg_flow_node_event flagEvent{};
-                    flagEvent.type = 3; // event type node
-                    if (flwEventNode["Location Flag"]["Save Bit Label"]) {
-                        u16 saveBitLabel = flwEventNode["Location Flag"]["Save Bit Label"].as<u16>();
-                        flagEvent.event_idx = 0; // Event Flag ON
-                        flagEvent.params[0] = 0;
-                        flagEvent.params[1] = 0;
-                        flagEvent.params[2] = (saveBitLabel >> 8) & 0xFF;
-                        flagEvent.params[3] = saveBitLabel & 0xFF;
-                    }
+                // Construct another FLW node to set the associated flag in a temporary variable
+                // right before we receive the item. This ensures that a tracker/AP can pick up
+                // on the fact that we've received the item.
+                auto newFlwIndex = handleCustomFlowID(location->GetName() + " Flag Set Node");
+                mesg_flow_node_event flagEvent{};
+                flagEvent.type = 3; // event type node
+                flagEvent.event_idx = 46; // Set temporary randomizer flag
 
-                    // Store the modified FLW nodes. The flag event takes the place of the original
-                    // index we're modifying and then leads into the custom index of the event that
-                    // sets up the item id
-                    flagEvent.next_node_idx = newFlwIndex;
-                    u32 key = (group << 16) | index;
-                    randoData.mFlowPatches[key] = std::bit_cast<u64>(flagEvent);
-
-                    key = (CUSTOM_BMG_GROUP << 16) | newFlwIndex;
-                    randoData.mFlowPatches[key] = std::bit_cast<u64>(event);
-
-                } else {
-                    // Store the modified FLW node(s)
-                    u32 key = (group << 16) | index;
-                    randoData.mFlowPatches[key] = std::bit_cast<u64>(event);
+                u8 stage{0xFF};
+                u16 flag{0xFFFF};
+                if (metaData["Event Flag"]) {
+                    flag = metaData["Event Flag"].as<u16>();
+                } else if (metaData["Switch Flag"]) {
+                    stage = metaData["Switch Flag"]["Stage"].as<u8>();
+                    flag = metaData["Switch Flag"]["Flag"].as<u8>();
                 }
+                flagEvent.params[0] = 0;
+                flagEvent.params[1] = stage;
+                flagEvent.params[2] = (flag >> 8) & 0xFF;
+                flagEvent.params[3] = flag & 0xFF;
+
+                // Store the modified FLW nodes. The flag event takes the place of the original
+                // index we're modifying and then leads into the custom index of the event that
+                // sets up the item id
+                flagEvent.next_node_idx = newFlwIndex;
+                u32 key = (group << 16) | index;
+                randoData.mFlowPatches[key] = std::bit_cast<u64>(flagEvent);
+
+                key = (CUSTOM_BMG_GROUP << 16) | newFlwIndex;
+                randoData.mFlowPatches[key] = std::bit_cast<u64>(event);
             }
         }
 

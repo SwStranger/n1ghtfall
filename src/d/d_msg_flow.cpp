@@ -1947,7 +1947,7 @@ u16 dMsgFlow_c::query056(mesg_flow_node_branch* i_flowNode_p, fopAc_ac_c* i_spea
 }
 #endif
 
-DUSK_GAME_DATA eventFunc dMsgFlow_c::mEventList[DUSK_IF_ELSE(46, 43)] = {
+DUSK_GAME_DATA eventFunc dMsgFlow_c::mEventList[DUSK_IF_ELSE(47, 43)] = {
     &dMsgFlow_c::event000, &dMsgFlow_c::event001, &dMsgFlow_c::event002, &dMsgFlow_c::event003,
     &dMsgFlow_c::event004, &dMsgFlow_c::event005, &dMsgFlow_c::event006, &dMsgFlow_c::event007,
     &dMsgFlow_c::event008, &dMsgFlow_c::event009, &dMsgFlow_c::event010, &dMsgFlow_c::event011,
@@ -1960,7 +1960,7 @@ DUSK_GAME_DATA eventFunc dMsgFlow_c::mEventList[DUSK_IF_ELSE(46, 43)] = {
     &dMsgFlow_c::event036, &dMsgFlow_c::event037, &dMsgFlow_c::event038, &dMsgFlow_c::event039,
     &dMsgFlow_c::event040, &dMsgFlow_c::event041, &dMsgFlow_c::event042,
 #if TARGET_PC
-    &dMsgFlow_c::event043, &dMsgFlow_c::event044, &dMsgFlow_c::event045
+    &dMsgFlow_c::event043, &dMsgFlow_c::event044, &dMsgFlow_c::event045, &dMsgFlow_c::event046,
 #endif
 };
 
@@ -2833,6 +2833,13 @@ int dMsgFlow_c::event044(mesg_flow_node_event* i_flowNode_p, fopAc_ac_c* i_speak
 int dMsgFlow_c::event045(mesg_flow_node_event* i_flowNode_p, fopAc_ac_c* i_speaker_p) {
     int prm0 = getParam(i_flowNode_p->params);
     randomizer_returnToSpawn(prm0);
+    return 1;
+}
+
+// Sets a rando temporary flag for tracker purposes
+int dMsgFlow_c::event046(mesg_flow_node_event* i_flowNode_p, fopAc_ac_c* i_speaker_p) {
+    int prm0 = getParam(i_flowNode_p->params);
+    randomizer_setTempFlag({0xFF, (prm0 >> 16) & 0xFF, static_cast<u16>(prm0 & 0xFFFF)});
     return 1;
 }
 

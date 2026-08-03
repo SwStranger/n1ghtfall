@@ -38,8 +38,6 @@
         Index: 0x18F
         Next Node Index: 0x116
         Parameters: 0x0001004A
-        Location Flag:
-          Save Bit Label: 0x20
     Name Lookup:
       - Uli Cradle Delivery
     Event Flag: 0x0301
@@ -1521,8 +1519,6 @@
         Index: 0x19A
         Next Node Index: 0xF5
         Parameters: 0x00010080
-        Location Flag:
-          Save Bit Label: 0x79
     Name Lookup:
       - Renados Letter
     Event Flag: 0x0F80
@@ -1552,8 +1548,6 @@
         Index: 0x55
         Next Node Index: 0x25
         Parameters: 0x00010031
-        Location Flag:
-          Save Bit Label: 0x46
     Name Lookup:
       - Rutelas Blessing
     Event Flag: 0x0804
@@ -1571,8 +1565,6 @@
         Index: 0x339
         Next Node Index: 0x1ED
         Parameters: 0x0001003D
-        Location Flag:
-          Save Bit Label: 0x1E0
     Name Lookup:
       - Gift From Ralis
     Event Flag: 0x3B80
@@ -1946,8 +1938,6 @@
         Index: 0x610
         Next Node Index: 0x439
         Parameters: 0x000100E9
-        Location Flag:
-          Save Bit Label: 0x30F
     Name Lookup:
       - Skybook From Impaz
     Event Flag: 0x5F80
@@ -1988,8 +1978,6 @@
         Index: 0x32
         Next Node Index: 0x2A
         Parameters: 0x00010083
-        Location Flag:
-          Save Bit Label: 0x116
     Name Lookup:
       - Ilia Charm
     Event Flag: 0x2280
@@ -2463,8 +2451,6 @@
         Index: 0x276
         Next Node Index: 0x1A5
         Parameters: 0x00010055
-#        Location Flag: Can't be set first otherwise event flow gets messed up
-#          Save Bit Label: 0x122
     Name Lookup:
       - STAR Prize 1
     Event Flag: 0x2308
@@ -2482,8 +2468,6 @@
         Index: 0x269
         Next Node Index: 0x1A1
         Parameters: 0x00010056
-#        Location Flag: Can't be set first otherwise event flow gets messed up
-#          Save Bit Label: 0x125
     Name Lookup:
       - STAR Prize 2
     Event Flag: 0x2301
