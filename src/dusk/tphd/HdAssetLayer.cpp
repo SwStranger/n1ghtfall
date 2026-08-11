@@ -707,13 +707,9 @@ void register_hd_textures_for_arc(std::span<u8> arcBytes, const std::vector<ArcF
 
 // HD arcs whose Wii-U layouts don't match the GC UI pipeline.
 constexpr std::string_view kHdSkipList[] = {
-    "res/Object/fileSel.arc",
+    "res/Layout/main2D.arc",
+    "res/FieldMap/Field0.arc",
 };
-
-bool is_layout_arc_path(std::string_view resPath) {
-    return resPath.starts_with("res/Layout/") ||
-           resPath.starts_with("res/LayoutRevo/");
-}
 
 std::filesystem::path hd_pack_path_for_arc(std::string_view resPath) {
     std::filesystem::path packPath = g_contentPath / std::string(resPath);
@@ -738,26 +734,7 @@ std::filesystem::path hd_pack_path_for_arc(std::string_view resPath) {
     return packPath;
 }
 
-// Layout arcs to mount from HD content instead of the ISO.
-constexpr std::string_view kHdLayoutMountList[] = {
-    "res/Layout/clctres.arc",
-    "res/Layout/fishres.arc",
-    "res/Layout/insectRes.arc",
-    "res/Layout/letres.arc",
-    "res/Layout/ringres.arc",
-    "res/Layout/skillres.arc",
-};
-
 bool should_skip_hd_arc_mount(std::string_view resPath) {
-    return false;
-
-    // Layout arcs mount only via kHdLayoutMountList.
-    if (is_layout_arc_path(resPath)) {
-        for (auto mount : kHdLayoutMountList) {
-            if (resPath == mount) return false;
-        }
-        return true;
-    }
     for (auto skip : kHdSkipList) {
         if (resPath == skip) return true;
     }
@@ -765,7 +742,7 @@ bool should_skip_hd_arc_mount(std::string_view resPath) {
 }
 
 bool should_register_hd_pack_for_vanilla_arc(std::string_view resPath) {
-    return resPath.starts_with("res/Layout/");
+    return resPath.starts_with("res/Layout/") || resPath == "res/FieldMap/Field0.arc";
 }
 
 std::filesystem::path fallback_path_for_arc(std::string_view resPath,

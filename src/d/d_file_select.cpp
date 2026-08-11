@@ -24,6 +24,10 @@
 #include <cstring>
 
 #include "dusk/version.hpp"
+#if DUSK_TPHD
+#include "dusk/settings.h"
+#include "dusk/tphd/HdAssetLayer.hpp"
+#endif
 
 #if TARGET_PC
 #include "dusk/menu_pointer.h"
@@ -5904,7 +5908,14 @@ void dFile_select3D_c::_move() {
 
     cXyz stack_20;
     Vec stack_8 = mPaneMgr->getGlobalVtxCenter(false, 0);
-    toItem3Dpos(oREG_F(0) + (stack_8.x + field_0x03b8.x), oREG_F(1) + (stack_8.y + field_0x03b8.y), oREG_F(2) + 720.0f, &stack_20);
+    f32 itemY = stack_8.y + field_0x03b8.y;
+#if DUSK_TPHD
+    if (dusk::tphd_active()) {
+        itemY += 87.0f;
+    }
+#endif
+    toItem3Dpos(oREG_F(0) + (stack_8.x + field_0x03b8.x), oREG_F(1) + itemY,
+                oREG_F(2) + 720.0f, &stack_20);
     field_0x03a4.set(stack_20);
     field_0x03b0.set(0, 0, 0);
     animePlay();
@@ -5951,6 +5962,10 @@ void dFile_select3D_c::setJ3D(char const* param_0, char const* param_1, char con
     JUT_ASSERT(5285, bmdRes != NULL);
 
     void* bmdWork = make_work_copy(bmdRes);
+#if DUSK_TPHD
+    dusk::tphd::register_copied_hd_resource(
+        archive->mEntryNum, param_0, bmdWork, archive->getResSize(bmdRes));
+#endif
     modelData = J3DModelLoaderDataBase::load(bmdWork, 0x51020010);
     JUT_ASSERT(5290, modelData != NULL);
 
@@ -6059,6 +6074,11 @@ void dFile_select3D_c::createMaskModel() {
     field_0x03b8.x = m_kamen_offset_x[mMaskIdx];
     field_0x03b8.y = m_kamen_offset_y[mMaskIdx];
     field_0x03b8.z = m_kamen_scale[mMaskIdx];
+#if DUSK_TPHD
+    if (dusk::tphd_active() && mMaskIdx != 0) {
+        field_0x03b8.x = -25.0f;
+    }
+#endif
     field_0x03a4.set(0.0f, 0.0f, 0.0f);
     field_0x03b0.set(0, 0, 0);
     mpModel = NULL;
@@ -6102,6 +6122,11 @@ void dFile_select3D_c::createMirrorModel() {
     field_0x03b8.x = m_mirror_offset_x[mMirrorIdx];
     field_0x03b8.y = m_mirror_offset_y[mMirrorIdx];
     field_0x03b8.z = m_mirror_scale[mMirrorIdx];
+#if DUSK_TPHD
+    if (dusk::tphd_active() && mMirrorIdx != 0) {
+        field_0x03b8.x = -25.0f;
+    }
+#endif
     field_0x03a4.set(0.0f, 0.0f, 0.0f);
     field_0x03b0.set(0, 0, 0);
     mpModel = NULL;

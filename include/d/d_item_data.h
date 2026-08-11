@@ -58,7 +58,11 @@ struct dItem_data {
 
     static s16 getTexture(u8 index) { return item_resource[index].mTexture; }
 
-    static u8 getTexScale (u8 index) { return item_resource[index].mTexScale; }
+#if TARGET_PC
+    static u8 getTexScale(u8 index);
+#else
+    static u8 getTexScale(u8 index) { return item_resource[index].mTexScale; }
+#endif
 
     static const char* getFieldArc(u8 index) { return field_item_res[index].mFieldArc; }
 
