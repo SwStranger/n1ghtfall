@@ -15,6 +15,8 @@
 
 #include <aurora/dvd.h>
 #include <aurora/texture.hpp>
+#include <borealis/io.hpp>
+#include <borealis/log.hpp>
 #include <dolphin/dvd.h>
 #include <SDL3/SDL_error.h>
 #include <SDL3/SDL_iostream.h>
@@ -23,16 +25,14 @@
 #include "JSystem/JKernel/JKRArchive.h"
 #include "JSystem/JKernel/JKRDecomp.h"
 #include "JSystem/JUtility/JUTTexture.h"
-#include "dusk/endian.h"
-#include "dusk/io.hpp"
-#include "dusk/logging.h"
+#include "helpers/endian.h"
 #include "AddrLib.hpp"
 #include "GtxParser.hpp"
 #include "LosTable.hpp"
 #include "TphdPack.hpp"
 #include "tracy/Tracy.hpp"
 
-static aurora::Module HdLog("dusk::tphd::hd");
+constexpr borealis::Log HdLog{"dusk::tphd::hd"};
 
 namespace dusk::tphd {
 
@@ -130,7 +130,7 @@ struct SDL_IODeleter {
 using IOStream = std::unique_ptr<SDL_IOStream, SDL_IODeleter>;
 
 IOStream open_stream(const std::filesystem::path& path) {
-    const auto pathString = io::fs_path_to_string(path);
+    const auto pathString = borealis::io::fs_path_to_string(path);
     return IOStream{SDL_IOFromFile(pathString.c_str(), "rb")};
 }
 
@@ -203,7 +203,7 @@ std::optional<TphdPack> load_pack_from_file(const std::filesystem::path& path) {
 }
 
 std::shared_ptr<const TphdPack> load_pack_cached(const std::filesystem::path& path) {
-    const auto key = io::fs_path_to_string(path);
+    const auto key = borealis::io::fs_path_to_string(path);
     {
         std::lock_guard lk{g_cacheMutex};
         const auto it = g_packCache().find(key);

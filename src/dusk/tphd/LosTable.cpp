@@ -3,11 +3,12 @@
 #include <fstream>
 #include <vector>
 
-#include "aurora/lib/logging.hpp"
-#include "d/actor/d_a_player.h"
-#include "dusk/endian.h"
+#include <borealis/log.hpp>
 
-static aurora::Module LosLog("dusk::tphd::los");
+#include "d/actor/d_a_player.h"
+#include "helpers/endian.h"
+
+constexpr borealis::Log LosLog{"dusk::tphd::los"};
 
 namespace dusk::tphd {
 

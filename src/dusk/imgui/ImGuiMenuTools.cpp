@@ -15,6 +15,7 @@
 #include "dusk/data.hpp"
 #include "dusk/dusk.h"
 #include "dusk/main.h"
+#include "dusk/os.h"
 #include "m_Do/m_Do_main.h"
 
 #include <aurora/lib/internal.hpp>
@@ -25,10 +26,6 @@
 #if defined(__APPLE__)
 #include <TargetConditionals.h>
 #endif
-
-namespace aurora::gx {
-extern bool enableLodBias;
-}
 
 namespace dusk {
     ImGuiMenuTools::ImGuiMenuTools() {}
@@ -75,9 +72,8 @@ namespace dusk {
                 bool disableWaterRefraction = getSettings().game.disableWaterRefraction;
                 if (ImGui::Checkbox("Disable Water Refraction", &disableWaterRefraction)) {
                     getSettings().game.disableWaterRefraction.setValue(disableWaterRefraction);
-                    config::Save();
+                    config::save();
                 }
-                ImGui::Checkbox("Enable LOD Bias", &aurora::gx::enableLodBias);
                 ImGui::EndMenu();
             }
 

@@ -1,14 +1,14 @@
 #include "TphdPack.hpp"
 
+#include <borealis/log.hpp>
 #include <zlib.h>
 
 #include <cstdio>
 #include <cstring>
 
-#include "dusk/endian.h"
-#include "dusk/logging.h"
+#include "helpers/endian.h"
 
-static aurora::Module TphdLog("dusk::tphd");
+constexpr borealis::Log TphdLog{"dusk::tphd"};
 
 namespace dusk::tphd {
 

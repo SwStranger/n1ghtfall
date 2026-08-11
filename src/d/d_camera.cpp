@@ -29,6 +29,7 @@
 #endif
 
 #if TARGET_PC
+#include "dusk/camera_operators.hpp"
 #include "dusk/frame_interpolation.h"
 #include "dusk/logging.h"
 #include "dusk/action_bindings.h"
@@ -196,7 +197,7 @@ int dCamMapToolData::Set(s32 param_0, s32 roomNo, fopAc_ac_c* param_2, u16 param
     return 0;
 }
 
-engine_fn dCamera_c::engine_tbl[] = {
+DUSK_GAME_DATA engine_fn dCamera_c::engine_tbl[] = {
     &dCamera_c::letCamera,        &dCamera_c::chaseCamera,    &dCamera_c::lockonCamera,
     &dCamera_c::talktoCamera,     &dCamera_c::subjectCamera,  &dCamera_c::fixedPositionCamera,
     &dCamera_c::fixedFrameCamera, &dCamera_c::towerCamera,    &dCamera_c::rideCamera,
@@ -1053,7 +1054,7 @@ void dCamera_c::debugDrawInit() {
 bool dCamera_c::Run() {
 #if TARGET_PC
     ResetView();
-    if (executeDebugFlyCam()) {
+    if (executeDebugFlyCam() || dusk::mods::camera_run_operators(this)) {
         mFrameCounter++;
         mTicks++;
         return true;
@@ -7602,6 +7603,10 @@ bool dCamera_c::executeDebugFlyCam() {
         sFlyCamLastMousePos = mouseValid ? io.MousePos : ImVec2{-1.0f, -1.0f};
     }
 
+    if (dusk::getSettings().game.enableMirrorMode) {
+        stickX *= -1.0f;
+    }
+
     f32 verticalDisp = 0.0f;
     if (trigR >= FLYCAM_TRIGGER_DEADZONE) {
         verticalDisp += trigR;
@@ -7712,7 +7717,7 @@ bool dCamera_c::freeCamera() {
 
     f32 yaw_rad = 0.0f;
     f32 pitch_rad = 0.0f;
-    dusk::mouse::getCameraDeltas(yaw_rad, pitch_rad);
+    dusk::mouse::get_camera_deltas(yaw_rad, pitch_rad);
     if (dusk::getSettings().game.enableMouseCamera && (yaw_rad != 0.0f || pitch_rad != 0.0f) &&
         !dComIfGp_checkCameraAttentionStatus(dComIfGp_getPlayerCameraID(0), 0x8))
     {
